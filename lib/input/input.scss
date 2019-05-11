@@ -1,0 +1,14 @@
+@import "../helper";
+.fui-input {
+  border: 1px solid #ddd;
+  line-height: 22px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px fade_out($main-color, 1);
+  transition: box-shadow 250ms;
+  &:focus {
+    outline: none;
+    border-color: $main-color;
+    box-shadow: 0 0 0 2px fade_out($main-color, 0.5);
+  }
+}
