@@ -4,7 +4,7 @@ import {useState, Fragment} from 'react';
 import Validator, {noError} from './validator';
 import Button from '../button/button';
 
-const usernames = ['frank', 'jack', 'alice', 'bob'];
+const usernames = ['frank', 'jack', 'frankfrank', 'alice', 'bob'];
 const checkUserName = (username: string, succeed: () => void, fail: () => void) => {
   setTimeout(() => {
     console.log('我现在知道用户名是否存在');
@@ -23,6 +23,7 @@ const FormExample: React.FunctionComponent = () => {
   });
   const [fields] = useState([
     {name: 'username', label: '用户名', input: {type: 'text'}},
+    {name: 'image', label: '头像', input: {type: 'text'}},
     {name: 'password', label: '密码', input: {type: 'password'}},
   ]);
   const [errors, setErrors] = useState({});
@@ -45,14 +46,20 @@ const FormExample: React.FunctionComponent = () => {
       {key: 'password', required: true},
     ];
     Validator(formData, rules, (errors) => {
-      console.log('errors');
-      console.log(errors);
       setErrors(errors);
-      console.log('确定 set 了');
       if (noError(errors)) {
         // 没错
       }
     });
+  };
+  const transformError = (message: string) => {
+    const map: any = {
+      unique: 'username is taken',
+      required: 'required',
+      minLength: 'too short',
+      maxLength: 'too long',
+    };
+    return map[message];
   };
   return (
     <div>
@@ -65,6 +72,7 @@ const FormExample: React.FunctionComponent = () => {
               </Fragment>
             }
             errors={errors}
+            transformError={transformError}
             onChange={(newValue) => setFormData(newValue)}
             onSubmit={onSubmit}
       />
