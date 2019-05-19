@@ -1,0 +1,12 @@
+.fui-scroll {
+  position: relative;
+  overflow: hidden;
+  &-inner {
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -16px;
+  }
+}
