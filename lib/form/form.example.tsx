@@ -44,6 +44,7 @@ const FormExample: React.FunctionComponent = () => {
       {key: 'password', validator},
     ];
     Validator(formData, rules, (errors) => {
+      console.log(errors);
       setErrors(errors);
       if (noError(errors)) {
         // 没错
