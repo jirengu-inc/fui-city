@@ -12,6 +12,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const Scroll: React.FunctionComponent<Props> = (props) => {
   const {children, ...rest} = props;
   const [barHeight, setBarHeight] = useState(0);
+  const [barVisible, setBarVisible] = useState(false);
   const [barTop, _setBarTop] = useState(0);
   const setBarTop = (number: number) => {
     if (number < 0) {return;}
@@ -22,12 +23,20 @@ const Scroll: React.FunctionComponent<Props> = (props) => {
     if (number > maxBarTop) {return;}
     _setBarTop(number);
   };
+  const timerIdRef = useRef<number | null>(null);
   const onScroll: UIEventHandler = (e) => {
+    setBarVisible(true);
     const {current} = containerRef;
     const scrollHeight = current!.scrollHeight;
     const viewHeight = current!.getBoundingClientRect().height;
     const scrollTop = current!.scrollTop;
     setBarTop(scrollTop * viewHeight / scrollHeight);
+    if (timerIdRef.current !== null) {
+      window.clearTimeout(timerIdRef.current!);
+    }
+    timerIdRef.current = window.setTimeout(() => {
+      setBarVisible(false);
+    }, 300);
   };
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => { // mounted 的时候算滚动条高度
@@ -35,6 +44,7 @@ const Scroll: React.FunctionComponent<Props> = (props) => {
     const viewHeight = containerRef.current!.getBoundingClientRect().height;
     setBarHeight(viewHeight * viewHeight / scrollHeight);
   }, []);
+
 
   const draggingRef = useRef(false);
   const firstYRef = useRef(0);
@@ -77,11 +87,13 @@ const Scroll: React.FunctionComponent<Props> = (props) => {
            onScroll={onScroll}>
         {children}
       </div>
+      {barVisible &&
       <div className="fui-scroll-track">
         <div className="fui-scroll-bar" style={{height: barHeight, transform: `translateY(${barTop}px)`}}
              onMouseDown={onMouseDownBar}
         />
       </div>
+      }
     </div>
   );
 };
