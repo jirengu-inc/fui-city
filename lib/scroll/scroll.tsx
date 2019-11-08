@@ -5,7 +5,7 @@ import scrollbarWidth from './scrollbar-width';
 import {UIEventHandler, MouseEventHandler, TouchEventHandler} from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-
+  onPull?: () => void
 }
 
 const Scroll: React.FunctionComponent<Props> = (props) => {
@@ -107,7 +107,11 @@ const Scroll: React.FunctionComponent<Props> = (props) => {
     lastYRef.current = e.touches[0].clientY;
   };
   const onTouchEnd: TouchEventHandler = () => {
-    setTranslateY(0);
+    if (pulling.current) {
+      setTranslateY(0);
+      props.onPull && props.onPull();
+      pulling.current = false;
+    }
   };
   return (
     <div className="fui-scroll" {...rest}>
