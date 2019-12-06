@@ -9,6 +9,7 @@ import './example.scss';
 import IconDemo from './lib/icon/icon.demo';
 import FormExample from './lib/form/form.example';
 import ScrollExample from './lib/scroll/scroll.example';
+import CitySelectExample from './lib/citySelect/citySelect.example';
 
 
 const logo = require('./logo.png');
@@ -41,6 +42,9 @@ ReactDOM.render(
             <li>
               <NavLink to="/scroll">滚动条</NavLink>
             </li>
+            <li>
+              <NavLink to="/citySelect">城市选择</NavLink>
+            </li>
           </ul>
         </Aside>
         <Content className="site-main">
@@ -50,6 +54,7 @@ ReactDOM.render(
           <Route path="/layout" component={LayoutExample}/>
           <Route path="/form" component={FormExample}/>
           <Route path="/scroll" component={ScrollExample}/>
+          <Route path="/citySelect" component={CitySelectExample}/>
         </Content>
       </Layout>
       <Footer className="site-footer">
