@@ -7863,6 +7863,11 @@ tiny-invariant@^1.0.2:
   resolved "https://registry.npm.taobao.org/tiny-invariant/download/tiny-invariant-1.0.6.tgz#b3f9b38835e36a41c843a3b0907a5a7b3755de73"
   integrity sha1-s/mziDXjakHIQ6OwkHpaezdV3nM=
 
+tiny-pinyin@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npm.taobao.org/tiny-pinyin/download/tiny-pinyin-1.3.0.tgz#4dee75ffb96fe24a448873f1d52c5a6bbc026946"
+  integrity sha1-Te51/7lv4kpEiHPx1Sxaa7wCaUY=
+
 tiny-warning@^1.0.0, tiny-warning@^1.0.2:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/tiny-warning/download/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
