@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, useState} from 'react';
+import React, {ChangeEventHandler, useRef, useState} from 'react';
 import {scopedClassMaker} from '../helpers/classes';
 import useUpdate from '../hooks/useUpdate';
 
@@ -42,9 +42,36 @@ const TreeItem: React.FC<Props> = (props) => {
     setExpanded(false);
   };
   const [expanded, setExpanded] = useState(true);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useUpdate(expanded, () => {
-    console.log('expanded 的值变为' + expanded);
+    if (!divRef.current) {return;}
+    if (expanded) {
+      divRef.current.style.height = 'auto';
+      const {height} = divRef.current.getBoundingClientRect();
+      divRef.current.style.height = '0px';
+      divRef.current.getBoundingClientRect();
+      divRef.current.style.height = height + 'px';
+      const afterExpand = () => {
+        if (!divRef.current) {return;}
+        divRef.current.style.height = '';
+        divRef.current.classList.add('fui-tree-children-present');
+        divRef.current.removeEventListener('transitionend', afterExpand);
+      };
+      divRef.current.addEventListener('transitionend', afterExpand);
+    } else {
+      const {height} = divRef.current.getBoundingClientRect();
+      divRef.current.style.height = height + 'px';
+      divRef.current.getBoundingClientRect();
+      divRef.current.style.height = '0px';
+      const afterCollapse = () => {
+        if (!divRef.current) {return;}
+        divRef.current.style.height = '';
+        divRef.current.classList.add('fui-tree-children-gone');
+        divRef.current.removeEventListener('transitionend', afterCollapse);
+      };
+      divRef.current.addEventListener('transitionend', afterCollapse);
+    }
   });
 
 
@@ -61,7 +88,7 @@ const TreeItem: React.FC<Props> = (props) => {
         </span>
       }
     </div>
-    <div className={sc({children: true, collapsed: !expanded})}>
+    <div ref={divRef} className={sc({children: true, collapsed: !expanded})}>
       {item.children?.map(sub =>
         <TreeItem key={sub.value} item={sub} level={level + 1} treeProps={treeProps}/>
       )}
