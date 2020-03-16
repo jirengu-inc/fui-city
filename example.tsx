@@ -10,6 +10,7 @@ import IconDemo from './lib/icon/icon.demo';
 import FormExample from './lib/form/form.example';
 import ScrollExample from './lib/scroll/scroll.example';
 import CitySelectExample from './lib/citySelect/citySelect.example';
+import TreeExample from './lib/tree/tree.example';
 
 
 const logo = require('./logo.png');
@@ -45,6 +46,9 @@ ReactDOM.render(
             <li>
               <NavLink to="/citySelect">城市选择</NavLink>
             </li>
+            <li>
+              <NavLink to="/tree">树型组件</NavLink>
+            </li>
           </ul>
         </Aside>
         <Content className="site-main">
@@ -55,6 +59,7 @@ ReactDOM.render(
           <Route path="/form" component={FormExample}/>
           <Route path="/scroll" component={ScrollExample}/>
           <Route path="/citySelect" component={CitySelectExample}/>
+          <Route path="/tree" component={TreeExample}/>
         </Content>
       </Layout>
       <Footer className="site-footer">
