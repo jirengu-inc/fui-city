@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Tree from './tree';
+import Tree, {SourceDataItem} from './tree';
 
 const TreeExample: React.FC = (props) => {
   const [array] = useState([{
@@ -23,12 +23,22 @@ const TreeExample: React.FC = (props) => {
       {text: '2.2', value: '2.2'},
     ]
   }]);
+  const [selectedValues, setSelectedValues] = useState(['1.1.1', '1.1.2']);
+  const onChange = (item: SourceDataItem, bool: boolean) => {
+    if (bool) {
+      setSelectedValues([...selectedValues, item.value]);
+    } else {
+      setSelectedValues(selectedValues.filter(value => value !== item.value));
+    }
+  };
   return (
     <div>Tree
       <h1>展示数据</h1>
+      {selectedValues.join(', ')}
       <div style={{width: 200}}>
         <Tree sourceData={array}
-              selectedValues={['1.1.1','1.1.2']}/>
+              onChange={onChange}
+              selectedValues={selectedValues}/>
       </div>
     </div>
   );
