@@ -4,34 +4,41 @@
     line-height: 1.5;
   }
   &-level-1 {
-    .fui-tree-text{
+    .fui-tree-text {
       padding-left: 0;
     }
   }
   &-level-2 {
-    .fui-tree-text{
+    .fui-tree-text {
       padding-left: 1em;
     }
   }
   &-level-3 {
-    .fui-tree-text{
+    .fui-tree-text {
       padding-left: 2em;
     }
   }
   &-level-4 {
-    .fui-tree-text{
+    .fui-tree-text {
       padding-left: 3em;
     }
   }
   &-level-5 {
-    .fui-tree-text{
+    .fui-tree-text {
       padding-left: 3em;
     }
   }
-  &-text{
+  &-text {
     display: block;
     &:hover {
       background: yellow;
     }
+  }
+  &-collapsed {
+    height: 0;
+    overflow: hidden;
+  }
+  &-children{
+    transition: height 1s;
   }
 }
