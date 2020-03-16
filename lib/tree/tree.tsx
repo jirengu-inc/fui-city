@@ -10,11 +10,16 @@ interface SourceDataItem {
 
 
 type Props = {
-    sourceData: SourceDataItem[],
-    onChange: (values: string[]) => void;
-  }
-  & ({ selected: string[], multiple: true }
-  | { selected: string, multiple?: false })
+  sourceData: SourceDataItem[],
+} & ({
+  multiple: true,
+  selected: string[],
+  onChange: (values: string[]) => void
+} | {
+  multiple?: false,
+  selected: string,
+  onChange: (values: string) => void
+})
 
 
 const scopedClass = scopedClassMaker('fui-tree');
@@ -37,6 +42,8 @@ const Tree: React.FC<Props> = (props) => {
         } else {
           props.onChange(props.selected.filter(value => value !== item.value));
         }
+      } else {
+        props.onChange(item.value);
       }
     };
     return <div key={item.value} className={sc(classes)}>
