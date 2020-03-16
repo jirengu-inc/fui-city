@@ -1,4 +1,6 @@
 import React from 'react';
+import {scopedClassMaker} from '../helpers/classes';
+import './tree.scss'
 
 interface SourceDataItem {
   text: string;
@@ -10,11 +12,18 @@ interface Props {
   sourceData: SourceDataItem[]
 }
 
-const x = (item: SourceDataItem) => {
-  return <div key={item.value}>
+const scopedClass = scopedClassMaker('fui-tree');
+const sc = scopedClass;
+
+const renderItem = (item: SourceDataItem, level = 1) => {
+  const classes = {
+    ['level-' + level]: true,
+    'item': true
+  };
+  return <div key={item.value} className={sc(classes)}>
     {item.text}
     {item.children?.map(sub => {
-      return x(sub);
+      return renderItem(sub, level + 1);
     })}
   </div>;
 };
@@ -23,7 +32,7 @@ const Tree: React.FC<Props> = (props) => {
   return (
     <div>
       {props.sourceData?.map(item => {
-        return x(item);
+        return renderItem(item);
       })}
     </div>
   );
