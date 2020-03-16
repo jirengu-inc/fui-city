@@ -1,5 +1,6 @@
 import React, {ChangeEventHandler, useState} from 'react';
 import {scopedClassMaker} from '../helpers/classes';
+import useUpdate from '../hooks/useUpdate';
 
 interface Props {
   item: SourceDataItem;
@@ -41,6 +42,12 @@ const TreeItem: React.FC<Props> = (props) => {
     setExpanded(false);
   };
   const [expanded, setExpanded] = useState(true);
+
+  useUpdate(expanded, () => {
+    console.log('expanded 的值变为' + expanded);
+  });
+
+
   return <div key={item.value} className={sc(classes)}>
     <div className={sc('text')}>
       <input type="checkbox" onChange={onChange} checked={checked}/>
