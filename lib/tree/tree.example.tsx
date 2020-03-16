@@ -38,7 +38,8 @@ const TreeExample: React.FC = (props) => {
       <div style={{width: 200}}>
         <Tree sourceData={array}
               onChange={onChange}
-              selectedValues={selectedValues}/>
+              selected={selectedValues}
+              multiple={true}/>
       </div>
     </div>
   );
