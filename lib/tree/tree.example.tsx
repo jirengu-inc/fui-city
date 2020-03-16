@@ -26,7 +26,10 @@ const TreeExample: React.FC = (props) => {
   return (
     <div>Tree
       <h1>展示数据</h1>
-      <Tree sourceData={array}/>
+      <div style={{width: 200}}>
+        <Tree sourceData={array}
+              selectedValues={['1.1.1','1.1.2']}/>
+      </div>
     </div>
   );
 };
